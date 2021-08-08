@@ -135,12 +135,12 @@ export default class CirclePackingNetGraph {
           .scaleExtent([1, 8])
           .on('zoom', () => { this.zoomed() }))
 
-    this.svg.append('g')
-        .selectAll('g')
-        .data(this.regions)
-        .enter().append('g')
-          .attr('id', d => d.id)
-          .call(this.drag(this.simulation))
+    const regions = this.svg.append('g')
+         .selectAll('g')
+         .data(this.regions)
+         .enter().append('g')
+           .attr('id', d => d.id)
+           .call(this.drag(this.simulation))
 
     regions.selectAll('circle')
            .data((d, i) => {
