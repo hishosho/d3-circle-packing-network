@@ -12,7 +12,10 @@ export default class CirclePackingNetGraph {
       height=800,
       viewBox=[],
       forceCollideR=100,
-      packColorRange=['#15b300', '#13a300']
+      packColor='#0080ff',
+      nodeColor='#f9d423',
+      pathColor='#090707',
+      focusColor='#E53A40'
     } = options
 
     this.options = {
@@ -21,7 +24,10 @@ export default class CirclePackingNetGraph {
       height,
       viewBox,
       forceCollideR,
-      packColorRange
+      packColor,
+      nodeColor,
+      pathColor,
+      focusColor
     }
 
     this.initData()
@@ -149,7 +155,7 @@ export default class CirclePackingNetGraph {
            .enter().append('circle')
               .attr('id', d => d.data.name)
               .style('cursor', 'pointer')
-              .attr('fill', d => d.children ? this.color(d.height) : 'white')
+              .attr('fill', d => d.children ? this.options.packColor : this.options.nodeColor)
               .attr('r', d => d.r)
               .on('click', (d) => {
                 if (typeof this.options.onNodeCilck === 'function') {
@@ -158,20 +164,21 @@ export default class CirclePackingNetGraph {
               })
               .on('mouseover', (d) => {
                 d3.select(`#${d.data.name}`)
-                  .style('stroke', '#2b2b2b')
+                  .style('stroke', this.options.focusColor)
+                  .style("stroke-width", 3)
                 this.links.map(link => {
                   if (link.source === d.data.name) {
                     d3.select(`#${link.id}`)
-                      .style("stroke", "#2b2b2b")
+                      .style("stroke", this.options.focusColor)
                       .style("stroke-width", 1)
                     d3.select(`#arrow_${link.id}`)
-                      .attr('stroke', '#2b2b2b')
+                      .attr('stroke', this.options.focusColor)
                     d3.selectAll('textPath')
                       .filter(function (d,  i) {
                         return this.href.baseVal === `#${link.id}`
                       })
-                      .attr('fill', '#2b2b2b')
-                      .style('font-size', 5)
+                      .attr('fill', this.options.focusColor)
+                      .style('font-size', 10)
                   }
                 })
               })
@@ -181,15 +188,15 @@ export default class CirclePackingNetGraph {
                 this.links.map(link => {
                   if (link.source === d.data.name) {
                     d3.select(`#${link.id}`)
-                      .style("stroke", "#aaa")
+                      .style("stroke", this.options.pathColor)
                       .style("stroke-width", 0.3)
                     d3.select(`#arrow_${link.id}`)
-                      .attr('stroke', '#999')
+                      .attr('stroke', this.options.pathColor)
                     d3.selectAll('textPath')
                       .filter(function (d,  i) {
                         return this.href.baseVal === `#${link.id}`
                       })
-                      .attr('fill', '#999')
+                      .attr('fill', this.options.pathColor)
                       .style('font-size', 3)
                   }
                 })
@@ -229,7 +236,7 @@ export default class CirclePackingNetGraph {
                 .text((d) => d.type)
                 .style("text-anchor", "middle")
                 .style("font-size", "3")
-                .attr('fill', '#999')
+                .attr('fill', this.options.pathColor)
                 .attr("startOffset", "50%")
 
     const defs = this.svg.append('defs')
@@ -245,7 +252,7 @@ export default class CirclePackingNetGraph {
         .attr("refY","0")
         .attr("orient","auto")
         .style("stroke-width", 5)
-        .attr("stroke", "#999")
+        .attr("stroke", "#090707")
         .append("path")
         .attr("d","M0,-2L5,0L0,2")
 
@@ -257,7 +264,7 @@ export default class CirclePackingNetGraph {
           .enter().append('path')
           .attr('id', d => d.id)
           .attr('marker-end', (d) => `url(#arrow_${d.id})`)
-          .style('stroke', '#aaa')
+          .style('stroke', this.options.pathColor)
           .style('stroke-width', '0.3')
 
     this.simulation.on('tick', () => {
@@ -338,12 +345,6 @@ export default class CirclePackingNetGraph {
     const node = d3.select(`#${nodeId}`).node().getBoundingClientRect()
     return [parseFloat(node.width), parseFloat(node.height)]
 
-  }
-  color (n) {
-    return (d3.scaleLinear()
-      .domain([0, 5])
-      .range(this.options.packColorRange)
-      .interpolate(d3.interpolateHcl))(n)
   }
   pack (region) {
     const pack = d3.pack()
