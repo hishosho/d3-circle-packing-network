@@ -45,9 +45,9 @@ const circlePackingNetGraph = new CirclePackingNetGraph('#app', options);
 | **forceCollideR** | *int* | force collide radius. Default: 100. |
 | **packColor** | *string* | pack's color. Default: #0080ff. |
 | **nodeColor** | *string* | node's color. Default: #f9d423. |
-| **pathColor** | *string* | path's color. Default: #090707. |
+| **pathColor** | *string* | path's color. Default: #22863a. |
 | **focusColor** | *string* | focus's color. Default: #E53A40. |
-| **svgBackground** | *string* | svg's background color. Default: #b3afaf. |
+| **svgBackground** | *string* | svg's background color. Default: #f0fff4. |
 | **onNodeCilck** | *function* | Callback function to be executed when the user clicks a node. |
 | **onNodeDoubleClick** | *function* | Callback function to be executed when the user double clicks a node. |
 | **onNodeDragEnd** | *function* | Callback function to be executed when the user finishes dragging a node. |
