@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.[contenthash:8].js',
-    path: path.resolve(__dirname, '../dist/js')
+    path: path.resolve(__dirname, '../dist')
   },
   resolve: {
     alias: {
