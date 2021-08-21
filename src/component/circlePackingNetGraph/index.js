@@ -14,9 +14,9 @@ export default class CirclePackingNetGraph {
       forceCollideR=100,
       packColor='#0080ff',
       nodeColor='#f9d423',
-      pathColor='#090707',
+      pathColor='#22863a',
       focusColor='#E53A40',
-      svgBackground='#b3afaf'
+      svgBackground='#f0fff4'
     } = options
 
     this.options = {
@@ -208,7 +208,7 @@ export default class CirclePackingNetGraph {
             .attr('refY','0')
             .attr('orient','auto')
             .style('stroke-width', 5)
-            .attr('stroke', '#090707')
+            .attr('stroke', this.options.pathColor)
           .append('path')
           .attr('d','M0,-2L5,0L0,2')
 
