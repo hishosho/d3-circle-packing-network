@@ -137,7 +137,7 @@ export default class CirclePackingNetGraph {
         .attr('width', this.options.width)
         .attr('height', this.options.height)
         .attr('viewBox', this.options.viewBox.length === 0
-                          ? [-this.options.width / 2, -this.options.height / 2, this.options.width, this.options.height]
+                          ? [-this.options.width / 3, -this.options.height / 2, this.options.width, this.options.height]
                           : this.options.viewBox)
         .call(d3.zoom()
           .extent([[0, 0], [this.options.width, this.options.height]])

@@ -85,5 +85,7 @@ const data = {
 
 
 new CirclePackingNetGraph('#app', {
-  circlePackingNetGraphData: data
+  circlePackingNetGraphData: data,
+  width: document.documentElement.clientWidth,
+  height: document.documentElement.clientHeight
 })
